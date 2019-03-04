@@ -1,0 +1,20 @@
+
+
+eureka:
+  instance:
+    hostname: dev
+  client:
+    register-with-eureka: false
+    ##是否去检索服务，因为我们eureka是维护服务实例，所以我们不需要它去检索（拉取）服务
+    fetch-registry: false
+    service-url:
+      ###定义defaultZone覆盖掉原来默认的8761端口。
+      defaultZone: http://localhost:10000/eureka/,http://localhost:10001/eureka/,http://localhost:10002/eureka/
+      server:
+        ###当eureka server启动的时候，不能从对等节点获取instance注册信息的情况，应等待多长时间。
+        wait-time-in-ms-when-sync-empty: 0
+        ##自我保护机制，即服务器端收到的客户端实例续约的总数总是小于期望的阀值，这时候页面会出现红字（不着急，后面再讲）
+        enable-self-preservation: true
+        ##eureka节点间间隔多长时间更新一次数据。默认10分钟。
+        peer-eureka-nodes-update-interval-ms: 100000
+    ##-----------------------eureka还有一个instance，它代表了实例------------------
